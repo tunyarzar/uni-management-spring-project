@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Teacher</title>
+
+	<link rel="stylesheet" href="/css/style.css">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"
+		th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light ">
+		<div class="container">
+			<a class="navbar-brand" th:href="@{'/'}">
+				<img src="/images/tum.jpg" alt="brand" class="rounded float-start " width="50" height="55">
+			</a>
+			<button class="navbar-toggler shawdow-none" type="button" data-bs-toggle="collapse"
+				data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse justify-content-center font-monospace fs-5"
+				id="navbarSupportedContent">
+				<ul class="navbar-nav   justify-content-center ms-auto mb-2 mb-lg-0 ">
+					<li class="nav-item text-light mx-4">
+						<a class="nav-link active" aria-current="page" th:href="@{'/'}">Home</a>
+					</li>
+					<li class="nav-item mx-4">
+						<a class="nav-link " href="#about">About</a>
+					</li>
+					<li class="nav-item dropdown mx-4">
+						<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
+						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+							<li><a class="dropdown-item" th:href="@{'/student/show'}">Student</a></li>
+							<li><a class="dropdown-item" th:href="@{'/teacher/show'}">Teacher</a></li>
+							<li><a class="dropdown-item" th:href="@{'/major/show'}">Departments</a></li>
+							<li><a class="dropdown-item" th:href="@{'/club/show'}">Activities</a></li>
+							<li>
+								<hr class="dropdown-divider" />
+							</li>
+							<li><a class="dropdown-item" href="#">Something else here</a></li>
+						</ul>
+					</li>
+
+					<li class="nav-item mx-4">
+						<a class="nav-link" href="#contact">Contact</a>
+					</li>
+
+					<button type="button" class="btn btn-outline-success mx-5"><a
+							th:href="@{'/login'}">Login</a></button>
+				</ul>
+			</div>
+
+		</div>
+	</nav>
+
+	<div class="container mt-5">
+		<div class="row">
+			<div class="col-md-8 offset-md-2">
+				<div class="card">
+					<div class="card-header bg-primary text-white">
+						<h1 class="card-title d-flex justify-content-center">Teacher Lists!</h1>
+					</div>
+					<div class="card-body">
+						<a href="#" th:href="@{'/teacher/new'}" class="btn btn-primary">Add Teacher</a>
+						<div class="table-responsive" th:if="${not #lists.isEmpty(teachers)}">
+							<table class="table table-hover">
+								<thead class="table-dark">
+									<tr>
+										<th>ID</th>
+										<th>Name</th>
+										<th>NRC</th>
+										<th>Subject</th>
+										<th>Ph</th>
+										<th>Address</th>
+										<th>Detail</th>
+										<th>Edit</th>
+										<th>Delete</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="teacher : ${teachers}">
+										<td th:text="${teacher.id}"></td>
+										<td th:text="${teacher.name}"></td>
+										<td th:text="${teacher.nrc}"></td>
+										<td th:text="${teacher.subject}"></td>
+										<td th:text="${teacher.ph}"></td>
+										<td th:text="${teacher.address}"></td>
+
+										<td><a href="#" th:href="@{'/teacher/details/' + ${teacher.id}}"
+												class="btn btn-secondary"><i class="fa-solid fa-circle-info"></i></td>
+
+										<td><a href="#" th:href="@{'/teacher/update/' + ${teacher.id}}"
+												class="btn btn-secondary"><i
+													class="fa-solid fa-pen-to-square fa-lg"></i></a></td>
+										<td><a href="#" th:href="@{'/teacher/delete/' + ${teacher.id}}"
+												class="btn btn-danger"><i class="fa-solid fa-trash fa-lg"></i></a></td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr>
+
+										<th>ID</th>
+										<th>Name</th>
+										<th>NRC</th>
+										<th>Subject</th>
+										<th>Ph</th>
+										<th>Address</th>
+										<th>Detail</th>
+										<th>Edit</th>
+										<th>Delete</th>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://kit.fontawesome.com/c4ef0df9ce.js" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
